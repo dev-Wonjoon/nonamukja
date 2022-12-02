@@ -3,6 +3,8 @@ from django.shortcuts import render
 from rest_framework.permissions import AllowAny
 from rest_framework.generics import CreateAPIView
 from .serializers import SignupSerializer
+from .models import User
+
 
 class SignupView(CreateAPIView):
     model = get_user_model()
@@ -10,3 +12,4 @@ class SignupView(CreateAPIView):
     permission_classes = [
         AllowAny,
     ]
+

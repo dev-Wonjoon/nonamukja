@@ -15,3 +15,4 @@ class SignupSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['pk', 'email', 'password', 'nickname']
+
