@@ -9,6 +9,3 @@ class PostListCreateView(ListCreateAPIView):
     model = Post
     queryset = Post.objects.all()
     serializer_class = PostSerializer
-    permission_classes = [
-            AllowAny,
-    ]

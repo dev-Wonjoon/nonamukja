@@ -1,15 +1,18 @@
+from django.db import models
 from rest_framework import serializers
 from .models import Post
 
 class PostSerializer(serializers.ModelSerializer):
 
-    def create(self, validated_data,):
+    def create(request, validated_data):
+
         post = Post(
-                title = validated_data['title'],
-                content = validated_data['content'],
-                photo = validated_data['photo'],
-                writer = validated_data['writer'],
-    )
+            title = validated_data['title'],
+            content = validated_data['content'],
+            photo = validated_data['photo'],
+            writer = request.user
+        )
+
         post.save()
         return post
 
