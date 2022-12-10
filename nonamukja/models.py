@@ -9,5 +9,3 @@ class Post(TimeStampedModel):
     photo = models.ImageField(upload_to='nonamukja/%Y/%m/%d', null=True, blank=True)
     writer = models.ForeignKey(User, on_delete=models.CASCADE)
 
-    
-

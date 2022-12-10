@@ -5,20 +5,9 @@ from datetime import datetime
 from rest_framework_simplejwt.tokens import AccessToken
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from accounts.models import User
+from accounts.serializers import UserSerializer
 
 class PostSerializer(serializers.ModelSerializer):
-
-    def create(self, validated_data):
-
-
-        post = Post(
-            title = self.validated_data['title'],
-            content = self.validated_data['content'],
-            photo = self.validated_data['photo'],
-            writer = self.validated_data['writer'],
-        )
-        post.save()
-        return post
 
     def update(self, instance, validated_data):
         instance.title = validated_data.get('title', instance.title)
@@ -31,5 +20,6 @@ class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
         fields = ['pk', 'title', 'content', 'photo', 'created_at', 'updated_at', 'writer']
+        read_only_fields = ['writer']
 
 
