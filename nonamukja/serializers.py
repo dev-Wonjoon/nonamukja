@@ -2,8 +2,6 @@ from django.db import models
 from rest_framework import serializers
 from .models import Post
 from datetime import datetime
-from rest_framework_simplejwt.tokens import AccessToken
-from rest_framework_simplejwt.authentication import JWTAuthentication
 from accounts.models import User
 from accounts.serializers import UserSerializer
 
