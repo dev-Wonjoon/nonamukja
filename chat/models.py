@@ -5,20 +5,28 @@ from core.models import TimeStampedModel
 
 User = get_user_model()
 
+class Room(TimeStampedModel):
+    class Meta:
+        db_table = "room"
 
-class ChatRoom(TimeStampedModel):
-    name = models.CharField(max_length=255)
+class RoomJoin(TimeStampedModel):
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name="roomJoin")
+    room_id = models.ForeignKey(Room, on_delete=models.CASCADE, related_name="roomJoin")
 
+    class Meta:
+        db_table = "roomJoin"
     
 
-class Message(models.Model):
-    user_id = models.ForeignKey(User, related_name='user_message', on_delete=models.CASCADE)
-    room_id = models.ForeignKey(Room, related_name='room_id', on_delete=models.CASCADE) 
-    content = models.TextField()
-    timestamp = models.DateTimeField(auto_now_add=True)
+class Message(TimeStampedModel):
+    message = models.CharField(max_length=500)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name="message")
+    room_id = models.ForeignKey(Room, on_delete=models.CASCADE, related_name="message")
+
+    class Meta:
+        db_table = "message"
 
     def __str__(self):
-        return self.author.username
+        return self.user_id.email
 
-    def last_10_message(self):
-        return Message.objects.order_by('-timestamp').all()[:10]
+    def last_30_message(self, room_id):
+        return Message.objects.filter(room_id=room_id).order_by('created_at')[:30]
