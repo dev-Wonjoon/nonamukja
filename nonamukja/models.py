@@ -8,4 +8,5 @@ class Post(TimeStampedModel):
     content = models.TextField(null=False, blank=False)
     photo = models.ImageField(upload_to='nonamukja/%Y/%m/%d', null=True, blank=True, default='media/default.png')
     writer = models.ForeignKey(User, on_delete=models.CASCADE)
-
+    talk_link = models.URLField(max_length=255, null=True)
+    
